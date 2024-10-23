@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка IP</title>
+</head>
+<body>
+    <h1>Проверка IP</h1>
+    <p id="result"></p>
+
+    <script>
+        async function checkIP() {
+            const response = await fetch('/check-ip');
+            const data = await response.json();
+            document.getElementById('result').innerText = data.message;
+        }
+
+        window.onload = checkIP;
+    </script>
+</body>
+</html>
