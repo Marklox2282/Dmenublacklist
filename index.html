@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проверка IP</title>
+    <title>IP Checker</title>
 </head>
 <body>
-    <h1>Проверка IP</h1>
-    <p id="result"></p>
-
     <script>
-        async function checkIP() {
-            const response = await fetch('/check-ip');
-            const data = await response.json();
-            document.getElementById('result').innerText = data.message;
-        }
-
-        window.onload = checkIP;
+        const blacklistedIPs = ['192.168.1.1', '10.0.0.1']; // Список черных адресов
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const userIP = data.ip;
+                if (blacklistedIPs.includes(userIP)) {
+                    alert('Your IP is blacklisted. Closing the mod.');
+                    // Здесь код для закрытия мода
+                } else {
+                    alert('Your IP is allowed.');
+                    // Здесь код для открытия мода
+                }
+            })
+            .catch(error => console.error('Error fetching IP:', error));
     </script>
 </body>
 </html>
